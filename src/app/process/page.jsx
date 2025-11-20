@@ -1,7 +1,13 @@
+"use client";
+
+import { useState } from 'react';  
 import Header from "../Components/Header"
 import Footer from "../Components/Footer"
 
 export default function Process() {
+    const [favColor, setFavColor] = useState("#ff0000");
+    const [rangeValue, setRangeValue] = useState(50);
+
     return(
         <>
             <Header />
@@ -14,8 +20,8 @@ export default function Process() {
                     <option>Video</option>
                     <option>Video</option>
                 </select>
-                <input type="color" id="favcolor" name="favcolor" value="#ff0000"></input>
-                <input type="range" min="1" max="220" value="50" class="slider" id="myRange"></input>
+                <input type="color" id="favcolor" name="favcolor" value= {favColor} onChange={(e) => setFavColor(e.target.value)}></input>
+                <input type="range" min="1" max="220" value= {rangeValue} onChange={(e) => setRangeValue(e.target.value)} className="slider" id="myRange"></input>
             </div>
             <Footer />
         </>
