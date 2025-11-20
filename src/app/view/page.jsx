@@ -1,6 +1,8 @@
 import Header from "../Components/Header"
 import Footer from "../Components/Footer"
 
+const list = ['test','test2','test3'];
+
 export default function View() {
     return(
         <>
@@ -14,6 +16,11 @@ export default function View() {
                 <br></br>
                 <img src={"https://cdn.britannica.com/22/248822-050-BC14C804/Fire-salamander.jpg"} width={100} height={100}></img>
                 <p>fjdfjkdfuadsEH3U29.mp4</p>
+
+                {list.forEach(el => {
+                    <p>1{el}</p>
+                })}
+
             </div>
             <Footer />
         </>
