@@ -1,17 +1,19 @@
+'use client'
+
 import { useState } from "react";
 
 export default function VideoPreviewCard({props}) {
 
-    const [thumnbail, setThumbnail] = useState(null);
+    // const [thumnbail, setThumbnail] = useState(null);
 
-    useEffect(() => {
-        // use props to use api link to return thumbail for each video
-        fetch(`mocklink.com/${props}`)
-            .then((res) => res.json())
-            .then((data) => {
-                setData(data);
-            });
-    }, []);
+    // useEffect(() => {
+    //     // use props to use api link to return thumbail for each video
+    //     fetch(`mocklink.com/${props}`)
+    //         .then((res) => res.json())
+    //         .then((data) => {
+    //             setData(data);
+    //         });
+    // }, []);
 
     return(
         <>
