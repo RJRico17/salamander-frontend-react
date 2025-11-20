@@ -1,10 +1,21 @@
 import Header from "../Components/Header"
 import Footer from "../Components/Footer"
 import VideoPreviewCard from "../Components/VideoPreviewCard";
-
-const list = ['test','test2','test3'];
+import { useEffect, useState } from "react";
 
 export default function View() {
+
+    const list = ['test','test2','test3'];
+    const [data, setData] = useState(null);
+
+    useEffect(() => {
+    fetch('mocklink.com')
+        .then((res) => res.json())
+        .then((data) => {
+            setData(data);
+        });
+    }, []);
+
     return(
         <>
             <Header />
@@ -15,9 +26,6 @@ export default function View() {
                 {list.map((el, idx) => (
                     <VideoPreviewCard props={el} key={idx} />
                 ))}
-
-                
-
             </div>
             <Footer />
         </>
