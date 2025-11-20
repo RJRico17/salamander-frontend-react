@@ -8,9 +8,10 @@ export default function Upload() {
             <div className="main">
                 <p>Upload</p>
                     <form action="/upload_target_url" method="post" enctype="multipart/form-data">
-                    <label for="myfile">Select a file:</label>
-                    <input type="file" id="myfile" name="myfile"></input>
-                </form>
+                        <label htmlFor="myfile">Select a file:</label>
+                        <input type="file" id="myfile" name="myfile"></input>
+                        <button>Submit</button>
+                    </form>
             </div>
             <Footer />
         </>
