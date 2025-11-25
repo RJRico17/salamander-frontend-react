@@ -7,7 +7,7 @@ export default function Upload() {
             <Header />
             <div className="main">
                 <p>Upload</p>
-                    <form action="/upload_target_url" method="post" enctype="multipart/form-data">
+                    <form action="/upload_target_url" method="post" encType="multipart/form-data">
                         <label htmlFor="myfile">Select a file:</label>
                         <input type="file" id="myfile" name="myfile"></input>
                         <button>Submit</button>
