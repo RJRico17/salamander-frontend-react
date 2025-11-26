@@ -4,9 +4,9 @@ export default function Home() {
   return (
     <>
       <Header />
-        <main>
+        <div className="main">
           Home
-        </main>
+        </div>
       <Footer />
     </>
   );

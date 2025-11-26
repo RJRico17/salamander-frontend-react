@@ -1,7 +1,7 @@
 export default function Footer() {
     return(
-        <>
-            <p>RJ Rudolf @2025</p>
-        </>
+        <div className="footer">
+            <p><strong>RJ Fredrick Rico & Rudolf Sirbu - Salamander@2025</strong></p>
+        </div>
     )
 }
