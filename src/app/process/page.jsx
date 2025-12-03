@@ -12,7 +12,7 @@ export default function Process() {
         <>
             <Header />
             <div className="main">
-                <p>Process</p>
+                <p>Process Videos</p>
                 <select>
                     {/* for loop, call api, for each video returned in the api make an optinn */}
                     {/* when video selected display thumbnail with api */}

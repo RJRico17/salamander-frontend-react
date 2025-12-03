@@ -13,7 +13,7 @@ export default function Completed() {
                 for loop thru all jobs
                 if completed, give a link to view csv
                 if not completed (in process) show in process */}
-                <p>Completed</p>
+                <p>Completed Processes</p>
                 {list.map((el, idx) => (
                     <VideoProcessCard props={el} key={idx} />
                 ))}
