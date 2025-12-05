@@ -3,7 +3,7 @@ import Link from "next/link"
 export default function Header() {
     return(
         <div className="header">
-            <h1>Salamnder Video Processor</h1>
+            <h2>Salamander Video Processor</h2>
             <nav>
                 <button><Link href="/">Home</Link></button>
                 <button><Link href="/view">View Videos</Link></button>
