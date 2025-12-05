@@ -1,28 +1,55 @@
 "use client";
 
-import { useState } from 'react';  
+import { useState, useEffect } from 'react';  
 import Header from "../Components/Header"
 import Footer from "../Components/Footer"
 
 export default function Process() {
-    const [favColor, setFavColor] = useState("#ff0000");
+    const [targetColor, setTargetColor] = useState("#ff0000");
     const [rangeValue, setRangeValue] = useState(50);
+
+    const [data, setData] = useState([]);
+    const [uuid, setUuid] = useState("");
+    const [video, setVideo] = useState(null);
+    
+    useEffect(() => {
+        fetch('http://localhost:3000/api/videos')
+            .then((res) => res.json())
+            .then((data) => {
+            setData(data.videos);
+        });
+    }, []);
+
+    function handleSubmit() {
+        if (video===null) alert("Error: Choose a video")
+        else {
+            fetch(`http://localhost:3000/process/${video}?targetColor=${targetColor}&threshold=${rangeValue}`, {method: "POST"})
+                .then((res) => res.json())
+                .then((data) => {
+                setUuid(data.jobId);
+            });
+            alert(`Process Started! Job UUID: ${uuid}`)
+        }
+    }
 
     return(
         <>
             <Header />
-            <div className="main">
+            <form className="main" action={handleSubmit}>
                 <p>Process Videos</p>
                 <select>
-                    {/* for loop, call api, for each video returned in the api make an optinn */}
-                    {/* when video selected display thumbnail with api */}
-                    <option>Video</option>
-                    <option>Video</option>
-                    <option>Video</option>
+                    <option value="none">Select a video</option>
+                    {data.map((el, idx) => (
+                        <option key={idx} value={el} onClick={setVideo(el)}>{el}</option>
+                    ))}
                 </select>
-                <input type="color" id="favcolor" name="favcolor" value= {favColor} onChange={(e) => setFavColor(e.target.value)}></input>
+                <p>Target Hex</p>
+                <input type="color" id="targetcolor" name="targetColor" value= {targetColor} onChange={(e) => setTargetColor(e.target.value)}></input>
+                <p>Threshold</p>
                 <input type="range" min="1" max="220" value= {rangeValue} onChange={(e) => setRangeValue(e.target.value)} className="slider" id="myRange"></input>
-            </div>
+                <br></br>
+                <button type='submit'>Process</button>
+            </form>
             <Footer />
         </>
     )
