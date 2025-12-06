@@ -36,7 +36,8 @@ export default function Process() {
         <>
             <Header />
             <form className="main" action={handleSubmit}>
-                <p>Process Videos</p>
+                <h2>Process Videos</h2>
+                <hr></hr>
                 <select>
                     <option value="none">Select a video</option>
                     {data.map((el, idx) => (

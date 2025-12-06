@@ -24,7 +24,8 @@ export default function View() {
         <>
             <Header />
             <div className="main">
-                <p>View Uploaded Videos</p>
+                <h2>View Uploaded Videos</h2>
+                <hr></hr>
                 {/* call api on display, get the file paths to each video
                 for loop, for each video from api return make a new video to display each video */}
                 {data.map((el, idx) => (
