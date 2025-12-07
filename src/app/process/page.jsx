@@ -38,7 +38,8 @@ export default function Process() {
             console.log(video);
             console.log(targetColor);
             console.log(rangeValue);
-            fetch(`http://localhost:3000/process/${video}?targetColor=${targetColor}&threshold=${rangeValue}`, {method: "POST"})
+            console.log(`http://localhost:3000/process/${video}?targetColor=${targetColor.replace(/^#/, "")}&threshold=${rangeValue}`);
+            fetch(`http://localhost:3000/process/${video}?targetColor=${targetColor.replace(/^#/, "")}&threshold=${rangeValue}`, {method: "POST"})
                 .then((res) => res.json())
                 .then((data) => {
                     setUuid(data.jobId);
