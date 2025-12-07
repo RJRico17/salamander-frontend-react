@@ -11,6 +11,7 @@ export default function Process() {
     const [data, setData] = useState([]);
     const [uuid, setUuid] = useState("");
     const [video, setVideo] = useState(null);
+    const [thumbnail, setThumbnail] = useState(null);
     
     useEffect(() => {
         fetch('http://localhost:3000/api/videos')
@@ -20,34 +21,61 @@ export default function Process() {
         });
     }, []);
 
+    function handlePreview(x) {
+        setVideo(x);
+        fetch(`http://localhost:3000/thumbnail/${x}`)
+            .then((res) => res.blob())
+            .then((blob) => {
+                const url = URL.createObjectURL(blob);
+                setThumbnail(url);
+        });
+    }
+
     function handleSubmit() {
-        if (video===null) alert("Error: Choose a video")
+        const val = document.getElementById('videoselection').value;
+        if (val==="none") alert("Error: Choose a video")
         else {
+            console.log(video);
+            console.log(targetColor);
+            console.log(rangeValue);
             fetch(`http://localhost:3000/process/${video}?targetColor=${targetColor}&threshold=${rangeValue}`, {method: "POST"})
                 .then((res) => res.json())
                 .then((data) => {
-                setUuid(data.jobId);
-            });
-            alert(`Process Started! Job UUID: ${uuid}`)
+                    setUuid(data.jobId);
+                    alert(`Process Started! Job UUID: ${data.jobId}`)
+                })
+                .catch((err) => {
+                    console.error("Fetch failed:", err);
+                    alert("Fetch failed");
+                });;
         }
     }
 
     return(
         <>
             <Header />
-            <form className="main" action={handleSubmit}>
-                <h2>Process Videos</h2>
+            <h2>Process Videos</h2>
+            <hr></hr>
+            <form className="main" onSubmit={handleSubmit}>
+                <img src={thumbnail} width={200} height={200} className='preview'></img>
+                <div className='optionsbar'>
+                    <div className='option'>
+                        <p>Select a video</p>
+                        <select id='videoselection'>
+                            <option value="none">Select a video</option>
+                            {data.map((el, idx) => (
+                                <option key={idx} value={el} onClick={handlePreview(el)}>{el}</option>
+                            ))}
+                        </select>
+                    </div>
+                    <div className='option'>
+                        <p>Target Color</p><input type="color" id="targetcolor" name="targetColor" value= {targetColor} onChange={(e) => setTargetColor(e.target.value)}></input>
+                    </div>
+                    <div className='option'>
+                        <p>Threshold: {rangeValue}</p><input type="range" min="1" max="220" value= {rangeValue} onChange={(e) => setRangeValue(e.target.value)} className="slider" id="myRange"></input>    
+                    </div>
+                </div>
                 <hr></hr>
-                <select>
-                    <option value="none">Select a video</option>
-                    {data.map((el, idx) => (
-                        <option key={idx} value={el} onClick={setVideo(el)}>{el}</option>
-                    ))}
-                </select>
-                <p>Target Hex</p>
-                <input type="color" id="targetcolor" name="targetColor" value= {targetColor} onChange={(e) => setTargetColor(e.target.value)}></input>
-                <p>Threshold</p>
-                <input type="range" min="1" max="220" value= {rangeValue} onChange={(e) => setRangeValue(e.target.value)} className="slider" id="myRange"></input>
                 <br></br>
                 <button type='submit'>Process</button>
             </form>

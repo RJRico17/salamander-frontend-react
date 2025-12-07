@@ -22,8 +22,11 @@ export default function VideoPreviewCard({props}) {
     return(
         <>
             {/* <img src={thumnbail} width={150} height={150}></img> */}
+            <p>{props} - <a 
+                href={`http://localhost:3000/videos/${props}`}
+                target="_blank"
+                rel="noopener noreferrer">Preview</a></p>
             <img src={thumbnail} width={150} height={150}></img>
-            <p>{props}</p>
         </>
     )
 }

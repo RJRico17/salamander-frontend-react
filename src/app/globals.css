@@ -54,3 +54,14 @@ body {
 .main {
   padding: 1rem;
 }
+
+.optionsbar {
+  display: flex;
+  flex-direction: row;
+  text-align: center;
+  margin: auto;
+}
+
+.option {
+  width: 20%;
+}
