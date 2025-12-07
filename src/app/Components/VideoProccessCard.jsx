@@ -1,28 +1,29 @@
 'use client'
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 export default function VideoProcessCard({props}) {
 
-    // const [thumbnail, setThumbnail] = useState(null);
-    const [status, setStatus] = useState("processing")
+    const [status, setStatus] = useState("Processing")
     
-    // useEffect(() => {
-    //     // use props to use api link to return thumbail for each video
-    //     fetch(`mocklink.com/${props}`)
-    //         .then((res) => res.json())
-    //         .then((data) => {
-    //             setData(data);
-    //         });
-    // }, []);
+    const [thumbnail, setThumbnail] = useState(null);
+    
+        useEffect(() => {
+            // use props to use api link to return thumbail for each video
+            fetch(`http://localhost:3000/thumbnail/${props}`)
+                .then((res) => res.blob())
+                .then((blob) => {
+                    const url = URL.createObjectURL(blob);
+                    setThumbnail(url);
+                });
+        }, [props]);
 
     return(
         <>
-            <p>{props}</p>
+            <h3>Job: {props}</h3>
             {/* <img src={thumnbail} width={150} height={150}></img> */}
             <p>Status: {status}</p>
-            <img src={"https://cdn.britannica.com/22/248822-050-BC14C804/Fire-salamander.jpg"} width={150} height={150}></img>
-            <p><a href="">CSV for {props}</a></p>
+            <p><a href={`http://localhost:3000/results/${props}`}>CSV for {props}</a></p>
 
         </>
     )

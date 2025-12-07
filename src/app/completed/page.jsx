@@ -1,10 +1,23 @@
+'use client'
+
 import Header from "../Components/Header"
 import Footer from "../Components/Footer"
 import VideoProcessCard from "../Components/VideoProccessCard"
-
-const list = ['test','test2','test3'];
+import { useEffect, useState } from "react";
 
 export default function Completed() {
+    const [data, setData] = useState([]);
+
+    useEffect(() => {
+    fetch('http://localhost:3000/api/results')
+        .then((res) => res.json())
+        .then((data) => {
+            setData(data.results);
+        });
+    }, []);
+
+    console.log(data);
+
     return(
         <>
             <Header />
@@ -15,7 +28,7 @@ export default function Completed() {
                 if not completed (in process) show in process */}
                 <h2>Completed Processes</h2>
                 <hr></hr>
-                {list.map((el, idx) => (
+                {data.map((el, idx) => (
                     <VideoProcessCard props={el} key={idx} />
                 ))}
             </div>
