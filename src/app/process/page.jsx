@@ -31,14 +31,17 @@ export default function Process() {
         });
     }
 
-    function handleSubmit() {
-        const val = document.getElementById('videoselection').value;
-        if (val==="none") alert("Error: Choose a video")
-        else {
+    function handleSubmit(e) {
+        e.preventDefault();
+        if (!video) { 
+            alert ("Error: Choose a video");
+            return;
+        }
             console.log(video);
             console.log(targetColor);
             console.log(rangeValue);
             console.log(`http://localhost:3000/process/${video}?targetColor=${targetColor.replace(/^#/, "")}&threshold=${rangeValue}`);
+
             fetch(`http://localhost:3000/process/${video}?targetColor=${targetColor.replace(/^#/, "")}&threshold=${rangeValue}`, {method: "POST"})
                 .then((res) => res.json())
                 .then((data) => {
@@ -48,8 +51,7 @@ export default function Process() {
                 .catch((err) => {
                     console.error("Fetch failed:", err);
                     alert("Fetch failed");
-                });;
-        }
+                });
     }
 
     return(
@@ -62,10 +64,13 @@ export default function Process() {
                 <div className='optionsbar'>
                     <div className='option'>
                         <p>Select a video</p>
-                        <select id='videoselection'>
+                        <select id="videoselection" value={video || "none"} onChange={(e) => {
+                                const name = e.target.value === "none" ? "" : e.target.value;
+                                setVideo(name);
+                                if (name) handlePreview(name);}}>
                             <option value="none">Select a video</option>
                             {data.map((el, idx) => (
-                                <option key={idx} value={el} onClick={handlePreview(el)}>{el}</option>
+                                <option key={idx} value={el}>{el}</option>
                             ))}
                         </select>
                     </div>
