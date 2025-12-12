@@ -33,6 +33,7 @@ body {
   margin: auto;
   width: 50%;
   background-color: whitesmoke;
+  padding-bottom: 100px;
 }
 
 .header {
@@ -64,4 +65,18 @@ body {
 
 .option {
   width: 20%;
+}
+
+.preview-block {
+  padding: 1rem 0;
+}
+
+.preview-images {
+  display: flex;
+  gap: 1rem;
+  align-items: flex-start;
+}
+
+.preview-images div {
+  flex: 1;
 }
